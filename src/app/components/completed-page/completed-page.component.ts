@@ -9,6 +9,7 @@ import { Todo } from 'src/app/models/todo';
 })
 export class CompletedPageComponent implements OnInit {
   todos: Todo[] = [];
+  isThereTasks!: boolean;
   constructor(private todoService: TodosService) {}
 
   ngOnInit(): void {
@@ -18,6 +19,8 @@ export class CompletedPageComponent implements OnInit {
   updateTodos(): void {
     //aggiorno l'array in questo componente
     this.todos = this.todoService.getTodos();
-    // console.log(this.todos);
+    //controllo se almeno uno degli elementi del array ha il valore completed a true
+    this.isThereTasks = this.todos.every((todo) => todo.completed === false);
+    console.log(this.isThereTasks);
   }
 }

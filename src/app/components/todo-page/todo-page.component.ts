@@ -11,7 +11,7 @@ export class TodoPageComponent implements OnInit {
   inputValue: string = '';
   todos: Todo[] = [];
   counter: number = 0;
-  // checkTask: boolean = false;
+  isThereTasks!: boolean;
   constructor(private todoService: TodosService) {}
 
   ngOnInit(): void {
@@ -39,14 +39,6 @@ export class TodoPageComponent implements OnInit {
     //aggiorno l'array sul service
     this.todoService.todos[index].completed = true;
     this.updateTodos();
-
-    // this.todos.forEach((element) => {
-    //   if (element.completed) {
-    //     this.checkTask = true;
-    //   } else {
-    //     this.checkTask = false;
-    //   }
-    // });
   }
 
   removeTask(index: number): void {
@@ -58,6 +50,8 @@ export class TodoPageComponent implements OnInit {
   updateTodos(): void {
     //aggiorno l'array in questo componente
     this.todos = this.todoService.getTodos();
-    // console.log(this.todos);
+    //controllo se almeno uno degli elementi del array ha il valore completed a true
+    this.isThereTasks = this.todos.every((todo) => todo.completed === true);
+    console.log(this.isThereTasks);
   }
 }

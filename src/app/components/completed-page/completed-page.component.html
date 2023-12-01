@@ -2,7 +2,7 @@
   <h5 class="my-2">Task Completate:</h5>
   <ul
     class="list-unstyled text-bg-dark w-25 rounded-3 px-3"
-    *ngIf="todos.length != 0; else elseBlock"
+    *ngIf="!isThereTasks; else elseBlock"
   >
     <li *ngFor="let todo of todos; let i = index">
       <div class="my-2 d-flex justify-content-between" *ngIf="todo.completed">
