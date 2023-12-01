@@ -1,1 +1,14 @@
-<p>todo-page works!</p>
+<div class="d-flex flex-column align-items-center mt-5">
+  <p *ngIf="true">Opps, non ci sono Task</p>
+
+  <div class="d-flex w-100 justify-content-center gap-1">
+    <input
+      type="text"
+      placeholder="Inserisci la task"
+      class="form-control w-25 border-dark"
+    />
+    <button class="btn btn-light border border-1 border-dark">
+      <i class="bi bi-plus-lg"></i>
+    </button>
+  </div>
+</div>
