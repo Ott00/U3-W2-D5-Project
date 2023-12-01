@@ -31,7 +31,7 @@ export class TodoPageComponent implements OnInit {
         title: this.inputValue,
         completed: false,
       };
-      console.log(obj);
+      // console.log(obj);
       this.todoService.addTodos(obj);
       this.updateTodos();
       this.inputValue = '';

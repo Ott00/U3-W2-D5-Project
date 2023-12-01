@@ -27,6 +27,5 @@ export class CompletedPageComponent implements OnInit {
     this.todos = this.todoService.getTodos();
     //controllo se almeno uno degli elementi del array ha il valore completed a true
     this.isThereTasks = this.todos.every((todo) => todo.completed === false);
-    console.log(this.isThereTasks);
   }
 }
