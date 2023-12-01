@@ -16,4 +16,12 @@ export class TodosService {
   addTodos(taskToAdd: Todo): void {
     this.todos.push(taskToAdd);
   }
+
+  waitResponse(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 2000);
+    });
+  }
 }

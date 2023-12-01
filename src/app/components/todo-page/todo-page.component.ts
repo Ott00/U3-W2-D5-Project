@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodosService } from 'src/app/services/todos.service';
 import { Todo } from 'src/app/models/todo';
+import { ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-todo-page',
@@ -12,13 +13,18 @@ export class TodoPageComponent implements OnInit {
   todos: Todo[] = [];
   counter: number = 0;
   isThereTasks!: boolean;
+  @ViewChild('remove') private draggableElement!: ElementRef;
+
   constructor(private todoService: TodosService) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    await this.todoService.waitResponse();
+    this.draggableElement.nativeElement.remove();
     this.updateTodos();
   }
 
-  addTask(): void {
+  async addTask() {
+    await this.todoService.waitResponse();
     if (this.inputValue != '') {
       const obj: Todo = {
         id: this.counter++,
@@ -27,21 +33,22 @@ export class TodoPageComponent implements OnInit {
       };
       console.log(obj);
       this.todoService.addTodos(obj);
-      this.inputValue = '';
-
       this.updateTodos();
+      this.inputValue = '';
     } else {
       console.log('Non hai inserito nulla');
     }
   }
 
-  setCompleted(index: number): void {
+  async setCompleted(index: number) {
+    await this.todoService.waitResponse();
     //aggiorno l'array sul service
     this.todoService.todos[index].completed = true;
     this.updateTodos();
   }
 
-  removeTask(index: number): void {
+  async removeTask(index: number) {
+    await this.todoService.waitResponse();
     //aggiorno l'array sul service
     this.todoService.todos.splice(index, 1);
     this.updateTodos();
@@ -52,6 +59,6 @@ export class TodoPageComponent implements OnInit {
     this.todos = this.todoService.getTodos();
     //controllo se almeno uno degli elementi del array ha il valore completed a true
     this.isThereTasks = this.todos.every((todo) => todo.completed === true);
-    console.log(this.isThereTasks);
+    // console.log(this.isThereTasks);
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodosService } from 'src/app/services/todos.service';
 import { Todo } from 'src/app/models/todo';
+import { ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-completed-page',
@@ -10,9 +11,14 @@ import { Todo } from 'src/app/models/todo';
 export class CompletedPageComponent implements OnInit {
   todos: Todo[] = [];
   isThereTasks!: boolean;
+
+  @ViewChild('remove') private draggableElement!: ElementRef;
+
   constructor(private todoService: TodosService) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    await this.todoService.waitResponse();
+    this.draggableElement.nativeElement.remove();
     this.updateTodos();
   }
 
