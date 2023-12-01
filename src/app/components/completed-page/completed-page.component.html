@@ -1,1 +1,21 @@
-<p>completed-page works!</p>
+<div class="d-flex flex-column align-items-center mt-5">
+  <h5 class="my-2">Task Completate:</h5>
+  <ul
+    class="list-unstyled text-bg-dark w-25 rounded-3 px-3"
+    *ngIf="todos.length != 0; else elseBlock"
+  >
+    <li *ngFor="let todo of todos; let i = index">
+      <div class="my-2 d-flex justify-content-between" *ngIf="todo.completed">
+        <div>
+          <span class="pointer"> • {{ todo.title }} </span>
+        </div>
+        <!-- <a (click)="removeTask(i)" class="pointer"
+            ><i class="bi bi-trash text-danger"></i
+          ></a> -->
+      </div>
+    </li>
+  </ul>
+  <ng-template #elseBlock>
+    <p>Non ci sono Task Completate</p>
+  </ng-template>
+</div>
